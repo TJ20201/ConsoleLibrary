@@ -2,6 +2,9 @@ package io.github.tj20201.consolelibrary.custom;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import io.github.tj20201.consolelibrary.actions.Buttons;
 
 public class Button extends JButton {
 
@@ -13,8 +16,9 @@ public class Button extends JButton {
 
     /**
      *
-     * @param text The text for the button
+     * @param text   The text for the button
      * @param bounds The rectangle object for the button's location and size
+     *
      * @return JButton
      */
     public static JButton makeButton(String text, Rectangle bounds) {
@@ -22,6 +26,13 @@ public class Button extends JButton {
         btn.setBounds(bounds);
         btn.setBackground( new Color(0x391313));
         btn.setForeground( new Color(0xACACAC));
+        ActionListener actlisten = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        };
+        btn.addActionListener(actlisten);
         return btn;
     }
 }

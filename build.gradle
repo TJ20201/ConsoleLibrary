@@ -5,6 +5,14 @@ plugins {
 group 'io.github.tj20201.consolelibrary'
 version '1.0.0'
 
+jar {
+  manifest {
+    attributes(
+      'Main-Class': 'io.github.tj20201.consolelibrary.Window'
+    )
+  }
+}
+
 repositories {
     mavenCentral()
 }
