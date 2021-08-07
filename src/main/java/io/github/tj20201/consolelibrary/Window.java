@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import io.github.tj20201.consolelibrary.custom.Button;
 
-public class Window {
+public class Window implements Variables{
     /**
      * Creates the main window.<br>
      * Can be called from anywhere as long as it can access this class.<br>
@@ -51,5 +51,10 @@ public class Window {
         wind.add(libraryBtn);
 
         wind.setVisible(true);
+    }
+
+    @Override
+    public void window() {
+        return window;
     }
 }
