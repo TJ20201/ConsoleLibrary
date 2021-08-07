@@ -1,4 +1,0 @@
-io/github/tj20201/consolelibrary/Window.java
- io.github.tj20201.consolelibrary.Window
-io/github/tj20201/consolelibrary/custom/Button.java
- io.github.tj20201.consolelibrary.custom.Button
