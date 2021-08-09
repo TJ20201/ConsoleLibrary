@@ -2,8 +2,7 @@ package io.github.tj20201.consolelibrary;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 import io.github.tj20201.consolelibrary.custom.Button;
 
@@ -17,6 +16,7 @@ public class Window {
      */
     static JFrame window;
     static String searchTerm = "";
+    static Boolean searchFocused = false;
 
     public static void main(String[] args) {
         window = new JFrame();
@@ -28,8 +28,8 @@ public class Window {
 
         // Size
 
-        window.setPreferredSize(new Dimension(650, 450));
-        window.setMinimumSize(new Dimension(450, 250));
+        window.setPreferredSize(new Dimension(713, 450));
+        window.setMinimumSize(new Dimension(513, 250));
         window.setSize(window.getPreferredSize());
 
         // Other
@@ -38,11 +38,17 @@ public class Window {
         window.getContentPane().setBackground(new Color(57, 57, 57));
         window.getContentPane().setForeground(new Color(236, 236, 236));
 
-        loop(window);
+        updateWindow(window);
+
+        window.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                updateWindow(window);
+            }
+        });
     }
 
-    private static void loop(JFrame wind) {
-
+    private static void updateWindow(JFrame wind) {
         // READ button
         JButton readBtn = Button.makeButton("Read", new Rectangle(10, 10, 80, 25), "red");
         // WRITE button
@@ -52,16 +58,27 @@ public class Window {
 
         // SEARCH field
         JTextField searchField = new JTextField(searchTerm);
-        searchField.setBounds(10, 40, wind.getWidth()+wind.getWidth()-wind.getWidth()-60, 25);
+        searchField.setBounds(10, 40, wind.getWidth() + wind.getWidth() - wind.getWidth() - 60, 25);
+        searchField.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                searchFocused = true;
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                searchFocused = false;
+            }
+        });
+
         // SEARCH button
-        System.out.println(wind.getWidth()+wind.getWidth()-wind.getWidth()-60);
-        JButton searchBtn = Button.makeButton("Search", new Rectangle(wind.getWidth()+wind.getWidth()-wind.getWidth()-50, 40, 25, 25));
+        System.out.println(wind.getWidth() + wind.getWidth() - wind.getWidth() - 60);
+        JButton searchBtn = Button.makeButton("Search", new Rectangle(wind.getWidth() + wind.getWidth() - wind.getWidth() - 50, 40, 25, 25));
 
 
         // DISCLAIMER text
         JLabel disclaimer = new JLabel("DISCLAIMER: This is named ConsoleLibrary due to the old (c++) version using an actual console.");
-        int disclaimerY = wind.getHeight()+wind.getHeight()-wind.getHeight()-70;
-        disclaimer.setBounds(10, disclaimerY, wind.getWidth()-20, 25);
+        int disclaimerY = wind.getHeight() + wind.getHeight() - wind.getHeight() - 70;
+        disclaimer.setBounds(10, disclaimerY, wind.getWidth() - 20, 25);
         disclaimer.setForeground(new Color(123, 123, 123));
 
         wind.getContentPane().removeAll();
@@ -81,15 +98,7 @@ public class Window {
         wind.setVisible(true);
         searchTerm = searchField.getText();
 
-        try {
-            synchronized (Window.class) {
-                Window.class.wait(18000);
-            }
-        } catch(Exception e) {
-            System.out.println(e);
-        }
         searchTerm = searchField.getText();
-        loop(wind);
     }
 
 }
